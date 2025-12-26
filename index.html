@@ -1,0 +1,359 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>给宁宝的元旦祝福 ❤️</title>
+    <style>
+        /* 全局样式重置 */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: "楷体", "KaiTi", serif; /* 全局楷书字体 */
+        }
+
+        /* 页面整体背景（雪花容器） */
+        body {
+            min-height: 120vh; /* 增加body高度，为草地往下调预留空间 */
+            background: linear-gradient(#b8e1ff, #e3f2fd); /* 天蓝色渐变背景 */
+            overflow-x: hidden;
+            position: relative;
+        }
+
+        /* 雪花动画样式 - 增大尺寸、优化动画避免卡顿 */
+        .snowflake {
+            position: absolute;
+            color: #fff;
+            opacity: 0.8;
+            user-select: none;
+            animation: snowfall linear infinite;
+            text-shadow: 0 0 5px rgba(255, 255, 255, 0.8); /* 增加阴影更立体 */
+        }
+
+        @keyframes snowfall {
+            0% {
+                transform: translateY(-20px) rotate(0deg);
+                opacity: 0;
+            }
+            10% {
+                opacity: 0.9;
+            }
+            90% {
+                opacity: 0.9;
+            }
+            100% {
+                transform: translateY(120vh) rotate(360deg); /* 适配body高度 */
+                opacity: 0;
+            }
+        }
+
+        /* 顶部标题样式 - 微调高度，让祝福区域更易上移 */
+        .header {
+            height: 30vh; /* 原40vh → 减少高度，为祝福上移腾空间 */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+            z-index: 1;
+        }
+
+        .title {
+            font-size: 3rem;
+            background: linear-gradient(#1976d2, #64b5f6); /* 天蓝色渐变文字 */
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            text-shadow: 0 2px 10px rgba(255, 255, 255, 0.8);
+            text-align: center;
+            padding: 0 20px;
+        }
+
+        /* 中部猫咪+祝福内容 - 上移优化 */
+        .content {
+            position: relative;
+            z-index: 1;
+            padding: 0 20px;
+            margin-top: -5vh; /* 负边距强制上移，核心调整 */
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 20px;
+        }
+
+        .cat-img {
+            width: 200px;
+            height: 200px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 8px solid #fff9c4; /* 嫩黄色边框 */
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            /* 猫咪追逐雪花的动画 */
+            animation: catMove 8s ease-in-out infinite;
+        }
+
+        @keyframes catMove {
+            0%, 100% {
+                transform: translate(0, 0) rotate(0deg);
+            }
+            25% {
+                transform: translate(30px, 10px) rotate(5deg);
+            }
+            50% {
+                transform: translate(0, 20px) rotate(-5deg);
+            }
+            75% {
+                transform: translate(-30px, 10px) rotate(5deg);
+            }
+        }
+
+        .blessing {
+            font-size: 1.5rem;
+            color: #388e3c; /* 深绿色文字更温馨 */
+            line-height: 1.8;
+            text-align: center;
+            max-width: 600px;
+            background: rgba(255, 255, 255, 0.7);
+            padding: 20px;
+            border-radius: 15px;
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.05);
+        }
+
+        /* 底部草地样式 - 下移+增强草地质感 */
+        .footer {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 25vh;
+            /* 关键修改：1. 渐变放上层（后定义），图片放下层；2. 渐变加透明度；3. 优化混合模式 */
+            background:
+                /* 下层：草坪图片（平铺显示纹理） */
+                    url('.jpg/草坪.webp') center/cover repeat,
+                        /* 上层：半透明渐变（保留层次感，不遮挡图片） */
+                    linear-gradient(to top,
+                    rgba(85, 139, 47, 0.6),  /* 底部深绿（60%透明） */
+                    rgba(129, 199, 132, 0.4), /* 中间绿（40%透明） */
+                    rgba(165, 214, 167, 0.2)  /* 顶部浅绿（20%透明） */
+                    );
+            background-blend-mode: overlay; /* 替换 multiply，更柔和的融合（图片纹理更清晰） */
+            border-top-left-radius: 60%;
+            border-top-right-radius: 60%;
+            box-shadow: 0 -5px 20px rgba(0, 0, 0, 0.1);
+            background-size: auto; /* 确保草坪图片不被拉伸变形，保持原有纹理大小 */
+        }
+
+
+        /* 樱花彩蛋按钮 - 核心修复：提高层级+增强辨识度，避免被背景遮挡 */
+        .sakura-btn {
+            position: fixed;
+            top: 30px;
+            right: 30px;
+            width: 50px;
+            height: 50px;
+            background: url('.jpg/樱花按钮.webp') no-repeat center;
+            background-size: cover;
+            border: none;
+            cursor: pointer;
+            opacity: 0.5;
+            transition: all 0.3s ease; /* 优化过渡效果 */
+            z-index: 1000; /* 原10 → 提高到1000，远超其他元素层级，确保不被遮挡 */
+            /* 增加轻微阴影，增强和背景的区分度 */
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+            /* 增加圆角，视觉更柔和 */
+            border-radius: 50%;
+        }
+
+        .sakura-btn:hover {
+            opacity: 1; /* hover时全显 */
+            transform: scale(1.1); /* hover轻微放大，更易识别 */
+        }
+
+        /* 照片弹窗样式 */
+        .photo-modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            display: none; /* 默认隐藏 */
+            justify-content: center;
+            align-items: center;
+            z-index: 1001; /* 比按钮高1，确保弹窗在按钮上层 */
+            padding: 20px;
+        }
+
+        .modal-content {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .couple-photo {
+            width: 300px;
+            height: 300px;
+            border-radius: 10px;
+            border: 5px solid #fff9c4;
+            object-fit: cover;
+        }
+
+        .encourage-word {
+            font-size: 1.2rem;
+            color: #fff;
+            text-align: center;
+            line-height: 1.6;
+        }
+
+        .close-btn {
+            padding: 8px 20px;
+            background: #fff9c4;
+            border: none;
+            border-radius: 8px;
+            font-size: 1rem;
+            cursor: pointer;
+            margin-top: 10px;
+            color: #388e3c;
+        }
+
+        /* 音频控件样式 */
+        audio {
+            position: fixed;
+            top: 100px;
+            left: 30px;
+            z-index: 10; /* 低于樱花按钮，避免遮挡 */
+            opacity: 0.5;
+            transition: opacity 0.3s ease;
+        }
+
+        audio:hover {
+            opacity: 1;
+        }
+
+        /* 响应式适配 */
+        @media (max-width: 768px) {
+            .title {
+                font-size: 2rem;
+            }
+            .blessing {
+                font-size: 1.2rem;
+            }
+            .cat-img {
+                width: 150px;
+                height: 150px;
+            }
+            .couple-photo {
+                width: 250px;
+                height: 250px;
+            }
+            .footer {
+                height: 20vh; /* 移动端适配草地高度 */
+            }
+            /* 移动端按钮微调，避免和音频重叠 */
+            .sakura-btn {
+                top: 80px;
+                right: 20px;
+                width: 45px;
+                height: 45px;
+            }
+        }
+    </style>
+</head>
+<body>
+<!-- 音频控件（替换src为《若当来世》的音频地址） -->
+<audio controls loop>
+    <source src=".mp3/若当来世.mp3" type="audio/mpeg">
+
+</audio>
+
+<!-- 顶部标题区域 -->
+<div class="header">
+    <h1 class="title">元旦快乐，我的宁宝 ❤️</h1>
+</div>
+
+<!-- 中部猫咪+祝福区域 -->
+<div class="content">
+    <!-- 替换猫咪图片地址 -->
+    <img src=".jpg/猫咪.webp" alt="可爱小猫咪" class="cat-img">
+    <div class="blessing">
+        亲爱的宁宝：<br>
+        新的一年，愿我们依然是一起度过清冷夜晚的男女朋友～<br>
+        愿你的世界永远温暖，永远有我，元旦快乐呀～
+    </div>
+</div>
+
+<!-- 底部草地区域 -->
+<div class="footer"></div>
+
+<!-- 樱花彩蛋按钮 -->
+<button class="sakura-btn" id="sakuraBtn"></button>
+
+
+<!-- 照片弹窗 -->
+<div class="photo-modal" id="photoModal">
+    <div class="modal-content">
+        <!-- 替换合照地址 -->
+        <img src=".jpg/探樱花.jpg" alt="我们的合照" class="couple-photo">
+        <div class="encourage-word">我永远相信宁宝，你一定能做到你想做的事情！</div>
+        <button class="close-btn" id="closeBtn">关闭</button>
+    </div>
+</div>
+
+<script>
+    // 雪花生成函数 - 减少数量、增大尺寸、优化性能
+    function createSnowflakes() {
+        const snowCount = 30; // 原80 → 减少至30，避免卡顿
+        const body = document.body;
+
+        // 先清空旧雪花，避免重复创建导致卡顿
+        const oldSnowflakes = document.querySelectorAll('.snowflake');
+        oldSnowflakes.forEach(snow => snow.remove());
+
+        for (let i = 0; i < snowCount; i++) {
+            const snowflake = document.createElement('div');
+            snowflake.classList.add('snowflake');
+            snowflake.textContent = '❄️';
+
+            // 随机雪花大小 - 原5-15px → 改为15-35px，增大尺寸
+            const size = Math.random() * 20 + 15;
+            snowflake.style.fontSize = `${size}px`;
+            snowflake.style.left = `${Math.random() * 100}vw`;
+            snowflake.style.top = `${Math.random() * -100}px`;
+            // 动画时长稍延长，适配大雪花，更自然
+            snowflake.style.animationDuration = `${Math.random() * 15 + 15}s`;
+            snowflake.style.animationDelay = `${Math.random() * 5}s`;
+
+            body.appendChild(snowflake);
+        }
+
+        // 定时重新生成雪花，改用setTimeout避免递归卡顿
+        setTimeout(createSnowflakes, 25000);
+    }
+
+    // 彩蛋按钮交互
+    const sakuraBtn = document.getElementById('sakuraBtn');
+    const photoModal = document.getElementById('photoModal');
+    const closeBtn = document.getElementById('closeBtn');
+
+    sakuraBtn.addEventListener('click', () => {
+        photoModal.style.display = 'flex';
+    });
+
+    closeBtn.addEventListener('click', () => {
+        photoModal.style.display = 'none';
+    });
+
+    // 点击弹窗外区域关闭
+    photoModal.addEventListener('click', (e) => {
+        if (e.target === photoModal) {
+            photoModal.style.display = 'none';
+        }
+    });
+
+    // 初始化雪花
+    createSnowflakes();
+</script>
+</body>
+</html>
